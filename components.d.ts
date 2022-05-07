@@ -32,7 +32,6 @@ declare module '@vue/runtime-core' {
     HeroiconsOutlineSun: typeof import('~icons/heroicons-outline/sun')['default']
     HeroiconsOutlineX: typeof import('~icons/heroicons-outline/x')['default']
     InstallButton: typeof import('./src/components/InstallButton.vue')['default']
-    Logo: typeof import('./src/components/Logo.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
     ParameterTable: typeof import('./src/components/ParameterTable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
