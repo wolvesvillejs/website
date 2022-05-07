@@ -2,7 +2,7 @@ import semver from 'semver';
 
 import DocsSource from './DocsSource';
 
-const branchBlacklist = new Set([]);
+const branchBlacklist = new Set();
 export default new DocsSource({
 	id: 'wolvesville.js',
 	name: 'Wolvesville',
