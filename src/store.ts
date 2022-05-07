@@ -10,12 +10,6 @@ import { Documentation, DocumentationCustomFile } from './interfaces/Documentati
 import { fetchError } from './util/fetchError';
 import { SearchTerm, DocumentType, DocumentLink } from './util/search';
 import { splitName } from './util/splitName';
-import BuildersSource from '~/data/BuildersSource';
-import CollectionSource from '~/data/CollectionSource';
-// import CommandoSource from '~/data/CommandoSource';
-import RESTSource from '~/data/RESTSource';
-import RPCSource from '~/data/RPCSource';
-import VoiceSource from '~/data/VoiceSource';
 
 export interface State {
 	sources: { source: DocsSource; name: string; id: string }[];
@@ -39,12 +33,6 @@ export const store = createStore<State>({
 	state: {
 		sources: [
 			{ source: MainSource, name: MainSource.name, id: MainSource.id },
-			{ source: CollectionSource, name: CollectionSource.name, id: CollectionSource.id },
-			{ source: BuildersSource, name: BuildersSource.name, id: BuildersSource.id },
-			{ source: VoiceSource, name: VoiceSource.name, id: VoiceSource.id },
-			{ source: RESTSource, name: RESTSource.name, id: RESTSource.id },
-			// { source: CommandoSource, name: CommandoSource.name, id: CommandoSource.id },
-			{ source: RPCSource, name: RPCSource.name, id: RPCSource.id },
 		],
 		source: MainSource,
 		tag: MainSource.defaultTag,
@@ -52,9 +40,9 @@ export const store = createStore<State>({
 		branches: [],
 		file: null,
 		stats: {
-			downloads: `${(225_000_000).toLocaleString()}+`,
-			stars: `${(11_000).toLocaleString()}+`,
-			contributors: `${(100).toLocaleString()}+`,
+			downloads: `${(700).toLocaleString()}+`,
+			stars: `${(2).toLocaleString()}+`,
+			contributors: `${(1).toLocaleString()}+`,
 		},
 		searchIndex: [],
 		searchRef: [],
@@ -97,9 +85,9 @@ export const store = createStore<State>({
 
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 			const [fetchedDownloads, fetchedStars, fetchedContributors] = await Promise.all([
-				fetch('https://api.npmjs.org/downloads/range/2013-08-21:2100-08-21/discord.js').then(toJSON, noop),
-				fetch('https://api.github.com/repos/discordjs/discord.js').then(toJSON, noop),
-				fetch('https://api.github.com/repos/discordjs/discord.js/stats/contributors').then(toJSON, noop),
+				fetch('https://api.npmjs.org/downloads/range/2013-08-21:2100-08-21/wolvesville.js').then(toJSON, noop),
+				fetch('https://api.github.com/repos/mainleau/wolvesville.js').then(toJSON, noop),
+				fetch('https://api.github.com/repos/mainleau/wolvesville.js/stats/contributors').then(toJSON, noop),
 			]);
 
 			if (fetchedDownloads?.downloads) {
@@ -333,13 +321,13 @@ export const store = createStore<State>({
 				documentation.links[t.name] = { name: 'docs-source-tag-typedef-typedef', params: { typedef: t.name } };
 			}
 
-			// Workaround for the single use of inter-source see also linking
-			if (inputSource.id === 'commando') {
-				documentation.links.Message = {
-					name: 'docs-source-tag-class-class',
-					params: { source: 'main', tag: 'master', class: 'Message' },
-				};
-			}
+			// // Workaround for the single use of inter-source see also linking
+			// if (inputSource.id === 'commando') {
+			// 	documentation.links.Message = {
+			// 		name: 'docs-source-tag-class-class',
+			// 		params: { source: 'main', tag: 'master', class: 'Message' },
+			// 	};
+			// }
 
 			documentation.global = inputSource.global;
 			documentation.source = inputSource.source;

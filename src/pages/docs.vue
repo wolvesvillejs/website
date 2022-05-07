@@ -21,13 +21,7 @@ import { useRouter, useRoute } from 'vue-router';
 import BackToTop from '~/components/BackToTop.vue';
 import Sidebar from '~/components/Sidebar.vue';
 import Spinner from '~/components/Spinner.vue';
-import BuildersSource from '~/data/BuildersSource';
-import CollectionSource from '~/data/CollectionSource';
-// import CommandoSource from '~/data/CommandoSource';
 import MainSource from '~/data/MainSource';
-import RESTSource from '~/data/RESTSource';
-import RPCSource from '~/data/RPCSource';
-import VoiceSource from '~/data/VoiceSource';
 import { useStore } from '~/store';
 import { fetchError } from '~/util/fetchError';
 
@@ -46,12 +40,6 @@ const { Ctrl_K } = useMagicKeys({
 const sources = reactive({
 	[MainSource.id]: MainSource,
 	main: MainSource,
-	[CollectionSource.id]: CollectionSource,
-	[BuildersSource.id]: BuildersSource,
-	[VoiceSource.id]: VoiceSource,
-	[RESTSource.id]: RESTSource,
-	// [CommandoSource.id]: CommandoSource,
-	[RPCSource.id]: RPCSource,
 });
 
 const showBackToTop = ref(false);

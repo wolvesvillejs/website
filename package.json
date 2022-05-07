@@ -1,12 +1,8 @@
 {
-	"name": "discord.js-website",
+	"name": "wolvesville.js-website",
 	"version": "3.0.0",
-	"description": "The website housing documentation for discord.js",
-	"author": "Noel Buechler <icrawltogo@outlook.com>",
-	"contributors": [
-		"Amish Shah <amishshah.2k@gmail.com>",
-		"Schuyler Cebulskie <Gawdl3y@gawdl3y.com>"
-	],
+	"description": "The website housing documentation for wolvesville.js",
+	"author": "MainLeau",
 	"private": true,
 	"scripts": {
 		"lint": "prettier --check . && eslint src --ext .ts,.vue",

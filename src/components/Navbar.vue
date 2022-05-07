@@ -8,7 +8,7 @@
 						class="text-gray-200 hover:bg-discord-blurple-630 hover:text-white rounded-md py-2 px-3 inline-flex items-center text-sm font-semibold focus:outline-none focus-visible:ring-1 focus-visible:ring-white"
 						active-class="bg-discord-blurple-600"
 					>
-						discord.js
+						wolvesville.js
 					</router-link>
 
 					<router-link
@@ -28,14 +28,14 @@
 						<span class="mr-2">GitHub</span><heroicons-outline-external-link class="h-5 w-5" />
 					</a>
 
-					<a
+					<!-- <a
 						href="https://discordjs.guide"
 						class="text-gray-200 hover:bg-discord-blurple-630 hover:text-white rounded-md py-2 px-3 inline-flex items-center text-sm font-semibold focus:outline-none focus-visible:ring-1 focus-visible:ring-white"
 						target="_blank"
 						rel="noopener"
 					>
 						<span class="mr-2">Guide</span><heroicons-outline-external-link class="h-5 w-5" />
-					</a>
+					</a> -->
 				</nav>
 
 				<div class="relative h-16 flex md:max-w-md md:w-full lg:max-w-lg">
@@ -180,14 +180,14 @@
 							><span class="mr-2">Github</span><heroicons-outline-external-link class="h-5 w-5 inline-block"
 						/></a>
 
-						<a
+						<!-- <a
 							href="https://discordjs.guide"
 							class="text-gray-200 hover:bg-discord-blurple-630 hover:text-white block rounded-md py-2 px-3 text-base font-semibold"
 							target="_blank"
 							rel="noopener"
 							@click="isOpen = !isOpen"
 							><span class="mr-2">Guide</span><heroicons-outline-external-link class="h-5 w-5 inline-block"
-						/></a>
+						/></a> -->
 					</div>
 				</nav>
 			</transition>

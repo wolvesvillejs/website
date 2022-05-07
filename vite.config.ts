@@ -33,26 +33,26 @@ export default defineConfig({
 			manifest: {
 				theme_color: '#090a16',
 				background_color: '#090a16',
-				name: 'Discord.js Docs',
-				short_name: 'd.js Docs',
+				name: 'wolvesville.js docs',
+				short_name: 'w.js Docs',
 				start_url: '.',
 				display: 'standalone',
 				description:
-					"Discord.js is a powerful Node.js module that allows you to interact with the Discord API very easily. It takes a much more object-oriented approach than most other JS Discord libraries, making your bot's code significantly tidier and easier to comprehend.",
-				icons: [
-					{
-						src: '/android-chrome-192x192.png',
-						sizes: '192x192',
-						type: 'image/png',
-						purpose: 'any maskable',
-					},
-					{
-						src: '/android-chrome-512x512.png',
-						sizes: '512x512',
-						type: 'image/png',
-						purpose: 'any maskable',
-					},
-				],
+					"Wolvesville.js is a powerful Node.js module that allows you to interact with the Wolvesville API very easily.",
+				// icons: [
+				// 	{
+				// 		src: '/android-chrome-192x192.png',
+				// 		sizes: '192x192',
+				// 		type: 'image/png',
+				// 		purpose: 'any maskable',
+				// 	},
+				// 	{
+				// 		src: '/android-chrome-512x512.png',
+				// 		sizes: '512x512',
+				// 		type: 'image/png',
+				// 		purpose: 'any maskable',
+				// 	},
+				// ],
 			},
 		}),
 		Components({
