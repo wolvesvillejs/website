@@ -118,7 +118,7 @@ const methods = computed(() => {
 const typeToArray = (type: any) => type as string[];
 
 useHead({
-	title: computed(() => `discord.js | ${cls?.name ?? ''}`),
+	title: computed(() => `wolvesville.js | ${cls?.name ?? ''}`),
 });
 
 onMounted(() => {
