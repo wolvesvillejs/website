@@ -40,8 +40,8 @@ export const store = createStore<State>({
 		branches: [],
 		file: null,
 		stats: {
-			downloads: `${(700).toLocaleString()}+`,
-			stars: `${(2).toLocaleString()}+`,
+			downloads: `${(1500).toLocaleString()}+`,
+			stars: `${(4).toLocaleString()}+`,
 			contributors: `${(1).toLocaleString()}+`,
 		},
 		searchIndex: [],
@@ -85,7 +85,7 @@ export const store = createStore<State>({
 
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 			const [fetchedDownloads, fetchedStars, fetchedContributors] = await Promise.all([
-				fetch('https://api.npmjs.org/downloads/range/2013-08-21:2100-08-21/wolvesville.js').then(toJSON, noop),
+				fetch('https://api.npmjs.org/downloads/range/2020-12-05:2100-12-05/wolvesville.js').then(toJSON, noop),
 				fetch('https://api.github.com/repos/mainleau/wolvesville.js').then(toJSON, noop),
 				fetch('https://api.github.com/repos/mainleau/wolvesville.js/stats/contributors').then(toJSON, noop),
 			]);
