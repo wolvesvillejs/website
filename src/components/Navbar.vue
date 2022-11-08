@@ -29,7 +29,7 @@
 					</a>
 
 					<a
-						href="https://discord.gg/tCKcv97vtp"
+						href="https://discord.gg/HuNzvV9S6Z"
 						class="text-gray-200 hover:bg-discord-blurple-630 hover:text-white rounded-md py-2 px-3 inline-flex items-center text-sm font-semibold focus:outline-none focus-visible:ring-1 focus-visible:ring-white"
 						target="_blank"
 						rel="noopener"
@@ -181,7 +181,7 @@
 						/></a>
 
 						<a
-							href="https://discord.gg/tCKcv97vtp"
+							href="https://discord.gg/HuNzvV9S6Z"
 							class="text-gray-200 hover:bg-discord-blurple-630 hover:text-white block rounded-md py-2 px-3 text-base font-semibold"
 							target="_blank"
 							rel="noopener"
