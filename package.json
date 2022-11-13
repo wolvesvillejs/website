@@ -2,7 +2,7 @@
 	"name": "wolvesville.js-website",
 	"version": "3.0.0",
 	"description": "The website housing documentation for wolvesville.js",
-	"author": "MainLeau",
+	"author": "mainleau",
 	"private": true,
 	"scripts": {
 		"lint": "prettier --check . && eslint src --ext .ts,.vue",

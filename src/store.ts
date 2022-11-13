@@ -86,8 +86,8 @@ export const store = createStore<State>({
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 			const [fetchedDownloads, fetchedStars, fetchedContributors] = await Promise.all([
 				fetch('https://api.npmjs.org/downloads/range/2020-12-05:2100-12-05/wolvesville.js').then(toJSON, noop),
-				fetch('https://api.github.com/repos/mainleau/wolvesville.js').then(toJSON, noop),
-				fetch('https://api.github.com/repos/mainleau/wolvesville.js/stats/contributors').then(toJSON, noop),
+				fetch('https://api.github.com/repos/wolvesvillejs/wolvesville.js').then(toJSON, noop),
+				fetch('https://api.github.com/repos/wolvesvillejs/wolvesville.js/stats/contributors').then(toJSON, noop),
 			]);
 
 			if (fetchedDownloads?.downloads) {

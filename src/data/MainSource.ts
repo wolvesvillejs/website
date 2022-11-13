@@ -8,7 +8,7 @@ export default new DocsSource({
 	name: 'Wolvesville',
 	global: 'Wolvesville',
 	docsRepo: 'wolvesvillejs/docs',
-	repo: 'mainleau/wolvesville.js',
+	repo: 'wolvesvillejs/wolvesville.js',
 	defaultTag: 'main',
 	branchFilter: (branch: string) => !branchBlacklist.has(branch) && !branch.startsWith('dependabot/'),
 	tagFilter: (tag: string) => semver.gte(tag.replace(/(^@.*\/.*@v?)?(?<semver>\d+.\d+.\d+)-?.*/, '$<semver>'), '9.0.0'),
