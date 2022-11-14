@@ -22,7 +22,7 @@
 				very easily.
 			</p>
 			<p>
-				Usability, consistency, and performance are key focuses of wolvesville.js, and it also has nearly 90% coverage of
+				Usability, consistency, and performance are key focuses of wolvesville.js, and it also has 100% coverage of
 				the Wolvesville API.
 			</p>
 		</div>
