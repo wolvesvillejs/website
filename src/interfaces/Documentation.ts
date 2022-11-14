@@ -7,7 +7,8 @@ interface DocumentationMeta {
 export interface DocumentationClassMeta {
 	line: number;
 	file: string;
-	path: string;
+	path?: string;
+	url?: string;
 }
 type DocumentationClassMethodMeta = DocumentationClassMeta;
 type DocumentationClassMethodParameterMeta = DocumentationClassMeta;
@@ -68,7 +69,7 @@ export interface DocumentationClassMethod {
 	scope?: string;
 	params?: DocumentationClassMethodParameter[];
 	examples?: string[];
-	returns?: string[][][] | { description: string; types: string[][][]; variable: boolean; nullable: boolean };
+	returns?: any;
 	returnsDescription?: string;
 	throws?: string[];
 	see?: string[];
@@ -87,12 +88,13 @@ export interface DocumentationClassEvent {
 
 export interface DocumentationClass {
 	name: string;
+	deprecated?: string | boolean;
 	description: string;
 	construct: DocumentationClassConstructor;
 	abstract: boolean;
 	access?: string;
-	extends: string[] | string[][];
-	implements: string[] | string[][];
+	extends: any;
+	implements: any;
 	props: DocumentationClassProperty[];
 	methods: DocumentationClassMethod[];
 	events: DocumentationClassEvent[];
@@ -147,7 +149,7 @@ interface DocumentationTypeDefinition {
 	see?: string[];
 	type: string[][][];
 	returns?: any;
-	returnDescription?: any;
+	returnsDescription?: string;
 	meta: DocumentationTypeDefinitionMeta;
 }
 
@@ -161,6 +163,7 @@ export interface Documentation {
 	classes: DocumentationClass[];
 	custom: DocumentationCustom[];
 	externals: DocumentationExternal[];
+	functions?: DocumentationClassMethod[];
 	global: string;
 	interfaces: DocumentationInterface[];
 	links: DocumentationLink[];
