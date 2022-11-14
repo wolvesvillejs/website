@@ -10,8 +10,7 @@
 <script setup lang="ts">
 import TypeLink from './TypeLink.vue';
 import { typeKey } from '~/util/typeKey';
-
-defineProps<{ names: string | string[] | string[][]; nullable?: boolean; variable?: boolean }>();
+defineProps<{ names: any; nullable?: boolean; variable?: boolean }>();
 </script>
 
 <style>
