@@ -182,6 +182,38 @@
 						</Disclosure>
 					</li>
 
+					<Disclosure v-if="visibleFunctions?.length" v-slot="{ open }" as="li" :default-open="true">
+						<DisclosureButton class="w-full focus:outline-none" tabindex="-1">
+							<div class="text-gray-800 dark:text-gray-100 py-2 text-md font-bold uppercase flex gap-1 items-center">
+								<button
+									class="leading-3 rounded-md p-1 focus:outline-none focus-visible:ring-1 focus-visible:ring-white"
+									:aria-expanded="open"
+								>
+									<span class="sr-only">{{ open ? 'Shrink' : 'Expand' }}</span>
+									<heroicons-outline-chevron-right class="inline-block" :class="{ hidden: open }" aria-hidden="true" />
+									<heroicons-outline-chevron-down class="inline-block" :class="{ hidden: !open }" aria-hidden="true" />
+								</button>
+								Functions
+							</div>
+						</DisclosureButton>
+						<DisclosurePanel as="ul">
+							<li v-for="fn in visibleFunctions" :key="fn.name">
+								<router-link
+									exact
+									:to="{
+										name: 'docs-source-tag-function-function',
+										params: { source: source?.id, tag: tag, function: fn.name },
+									}"
+									class="text-gray-600 dark:text-gray-300 border-l-4 border-transparent rounded-sm hover:border-l-4 hover:border-discord-blurple-500 hover:text-gray-800 dark:hover:text-gray-100 group flex items-center px-3 py-2 text-sm font-semibold focus:outline-none focus-visible:ring-1 focus-visible:ring-white"
+									exact-active-class="border-l-4 border-discord-blurple-530 text-gray-900"
+									@click="isOpen = false"
+								>
+									<span class="truncate">{{ fn.name }}</span>
+								</router-link>
+							</li>
+						</DisclosurePanel>
+					</Disclosure>
+
 					<Disclosure v-if="visibleClasses?.length" v-slot="{ open }" as="li" :default-open="true">
 						<DisclosureButton class="w-full focus:outline-none" tabindex="-1">
 							<div class="text-gray-800 dark:text-gray-100 py-2 text-md font-bold uppercase flex gap-1 items-center">
@@ -271,38 +303,34 @@ import MainSource from '~/data/MainSource';
 import { useStore } from '~/store';
 import { usePreferredReducedMotion, toggleReducedMotion } from '~/util/ReducedMotion';
 import { isShowPrivates } from '~/util/showPrivates';
-
 const router = useRouter();
 const route = useRoute();
 const store = useStore();
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const lgAndLarger = breakpoints.greater('lg');
-
 const isOpen = ref(false);
 const sidebarElement = ref();
-
 const sources = computed(() => store.state.sources);
 const source = computed(() => store.state.source);
 const tag = computed(() => store.state.tag);
 const docs = computed(() => store.state.docs);
 const branches = computed(() => store.state.branches);
-
 const routeSource = computed(() => sources.value.find((source) => route.params.source === source.id));
-
 const selectedSource = ref({
 	source: routeSource.value?.source ?? MainSource,
 	name: routeSource.value?.name ?? MainSource.name,
 });
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 const selectedBranch = ref(route.params.tag ?? MainSource.defaultTag);
-
 const visibleClasses = computed(() =>
 	isShowPrivates.value ? docs.value?.classes : docs.value?.classes.filter((cls) => cls.access !== 'private'),
+);
+const visibleFunctions = computed(() =>
+	isShowPrivates.value ? docs.value?.functions ?? [] : docs.value?.functions?.filter((fn) => fn.access !== 'private'),
 );
 const visibleTypedefs = computed(() =>
 	isShowPrivates.value ? docs.value?.typedefs : docs.value?.typedefs.filter((typedef) => typedef.access !== 'private'),
 );
-
 onClickOutside(sidebarElement, () => (isOpen.value = false));
 whenever(lgAndLarger, () => (isOpen.value = false), { immediate: true });
 watch([selectedSource, selectedBranch], async ([currentSource, currentBranch], [prevSource, prevBranch]) => {
@@ -335,7 +363,6 @@ watch([selectedSource, selectedBranch], async ([currentSource, currentBranch], [
 .sidebar-height {
 	height: calc(100vh - theme('height.16'));
 }
-
 .sidebar-color::before {
 	content: '';
 	position: absolute;
@@ -346,7 +373,6 @@ watch([selectedSource, selectedBranch], async ([currentSource, currentBranch], [
 	background: #ffffff;
 	pointer-events: none;
 }
-
 .dark .sidebar-color::before {
 	background: #191919;
 }

@@ -43,30 +43,40 @@
 		<div class="grid pl-2.5">
 			<p class="noprose" v-html="description"></p>
 			<ParameterTable v-if="method.params" :parameters="method.params" />
+
 			<div class="font-semibold mt-3">
 				Returns:
 				<span v-if="method.returns && Array.isArray(method.returns)">
-					<Types v-for="rtrn in method.returns" :key="typeKey(rtrn)" :names="rtrn" />
+					<template v-if="docs!.meta!.format >= 30">
+						<template v-if="Array.isArray(method.returns?.[0])">
+							<Types v-for="rtrn in method.returns.flat()" :key="typeKey(rtrn)" :names="rtrn" />
+						</template>
+						<template v-else>
+							<Types
+								v-for="rtrn in method.returns.flat()"
+								:key="typeKey(rtrn)"
+								:names="rtrn.types?.flat()"
+								:variable="rtrn.variable"
+								:nullable="rtrn.nullable"
+							/>
+						</template>
+					</template>
+					<template v-else>
+						<Types v-for="rtrn in method.returns" :key="typeKey(rtrn)" :names="rtrn" />
+					</template>
 				</span>
 				<span v-else-if="method.returns && !Array.isArray(method.returns)">
 					<Types
-						v-for="rtrn in method.returns.types || method.returns"
+						v-for="rtrn in method.returns.types"
 						:key="typeKey(rtrn)"
 						:names="rtrn"
-						:variable="method.returns.variable"
-						:nullable="method.returns.nullable"
+						:variable="rtrn.variable"
+						:nullable="rtrn.nullable"
 					/>
 				</span>
 				<TypeLink v-else :type="['void']" />
 				<div class="mt-3">
-					<p
-						v-if="
-							(method.returns && !Array.isArray(method.returns) && method.returns.description) ||
-							method.returnsDescription
-						"
-						class="noprose"
-						v-html="returnDescription"
-					></p>
+					<p v-if="returnDescription" class="noprose" v-html="returnDescription"></p>
 				</div>
 			</div>
 
@@ -87,7 +97,11 @@
 
 			<div v-if="method.examples?.length" class="font-semibold mt-3">
 				Examples:
-				<Codeblock v-for="example in method.examples" :key="example" :code="example.trim()" />
+				<Codeblock
+					v-for="example in method.examples"
+					:key="example"
+					:code="example.replace(/(`{3,})(.+)?/gm, '').trim()"
+				/>
 			</div>
 
 			<See v-if="method.see?.length" :see="method.see" />
@@ -135,8 +149,8 @@ const deprecatedDescription = computed(() =>
 const returnDescription = computed(() =>
 	markdown(
 		// @ts-expect-error
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-		convertLinks(props.method.returns.description ?? props.method.returnsDescription, docs.value, router, route),
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+		convertLinks(props.method.returns?.[0]?.description, docs.value, router, route) ?? '',
 	),
 );
 const params = computed(() => (props.method.params ? props.method.params.filter((p) => !p.name.includes('.')) : null));

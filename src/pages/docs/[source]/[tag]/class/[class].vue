@@ -6,6 +6,18 @@
 			<h1 :id="`doc-for-${cls?.name}`" class="!mb-3">
 				{{ cls?.name }}
 			</h1>
+			<p v-if="cls?.description" class="!mb-2" v-html="description"></p>
+
+			<span
+				v-if="cls?.deprecated"
+				class="space-x-2 text-gray-200 font-semibold uppercase pt-1 pb-1 inline-flex items-center px-2.5 py-0.5 rounded-md bg-discord-red-500"
+				>Deprecated</span
+			>
+
+			<div v-if="cls?.deprecated && deprecatedDescription" class="noprose warn !mt-1.5 !mb-2.5 px-1">
+				<span v-html="deprecatedDescription"></span>
+			</div>
+
 			<p class="font-bold !mt-3">
 				<span v-if="cls?.extends">
 					extends
@@ -19,14 +31,12 @@
 				</span>
 			</p>
 
-			<p v-if="cls?.description" class="!mb-2" v-html="description"></p>
-
 			<div v-if="cls?.construct" class="grid">
 				<h2 class="!mt-3">Constructor</h2>
 				<pre
 					ref="codeblock"
 					class="javascript"
-				><code>new {{ docs?.global }}.{{ cls?.name }}(<span v-for="(param, idx) in constructorParameters" :key="param.name">{{ param.name }}{{ (constructorParameters?.length ?? 1) - 1 !== idx ? ', ' : '' }}</span>);</code></pre>
+				><code>{{ docs?.global === 'discord.js' ? 'new ' :  '' }}{{ cls?.construct.name }}(<span v-for="(param, idx) in constructorParameters" :key="param.name">{{ param.name }}{{ (constructorParameters?.length ?? 1) - 1 !== idx ? ', ' : '' }}</span>);</code></pre>
 				<ParameterTable v-if="cls.construct.params" :parameters="cls.construct.params" />
 			</div>
 
@@ -80,6 +90,14 @@ const cls = docs.value?.classes.find((cls) => cls.name === route.params.class);
 // @ts-expect-error
 // eslint-disable-next-line @typescript-eslint/no-unsafe-return
 const description = computed(() => markdown(convertLinks(cls?.description, docs.value, router, route)));
+
+const deprecatedDescription = computed(() =>
+	typeof cls?.deprecated === 'string'
+		? // @ts-expect-error
+		  markdown(convertLinks(cls.deprecated, docs.value, router, route))
+		: '',
+);
+
 const constructorParameters = computed(() => {
 	if (!cls?.construct || !cls.construct.params) {
 		return null;
@@ -118,7 +136,7 @@ const methods = computed(() => {
 const typeToArray = (type: any) => type as string[];
 
 useHead({
-	title: computed(() => `wolvesville.js | ${cls?.name ?? ''}`),
+	title: computed(() => `discord.js | ${cls?.name ?? ''}`),
 });
 
 onMounted(() => {

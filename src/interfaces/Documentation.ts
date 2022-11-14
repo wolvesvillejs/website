@@ -146,7 +146,8 @@ interface DocumentationTypeDefinition {
 	params?: DocumentationTypeDefinitionParameter[];
 	see?: string[];
 	type: string[][][];
-	returns?: string[][][] | { description: string; types: string[][][]; variable: boolean; nullable: boolean };
+	returns?: any;
+	returnDescription?: any;
 	meta: DocumentationTypeDefinitionMeta;
 }
 

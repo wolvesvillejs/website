@@ -1,44 +1,30 @@
 <template>
 	<div class="mx-auto py-16 px-4 sm:px-8 lg:py-8 w-full">
-		<SourceButton class="float-right mt-2" :meta="typedef?.meta" />
+		<SourceButton class="float-right mt-2" :meta="fn?.meta" />
 
 		<div class="prose prose-discord dark:prose-light break-words-legacy mx-auto max-w-4xl lg:max-w-full">
-			<h1 :id="`doc-for-${typedef?.name}`">
-				{{ typedef?.name }}
+			<h1 :id="`doc-for-${fn?.name}`">
+				{{ fn?.name }}
 			</h1>
 
-			<p v-if="typedef?.description" v-html="description"></p>
-			<See v-if="typedef?.see?.length" :see="typedef?.see" />
+			<p v-if="fn?.description" v-html="description"></p>
+			<See v-if="fn?.see?.length" :see="fn?.see" />
 
-			<template v-if="typedef?.type">
-				<h2>Types</h2>
-				<ul id="typedef-types">
-					<li v-for="type in typedef?.type" :key="typeKey(type)">
-						<ExpandableTypes class="!m-0" :names="type" />
-					</li>
-				</ul>
-			</template>
-
-			<template v-if="typedef?.props && typedef?.props.length">
-				<h2>Properties</h2>
-				<ParameterTable :parameters="typedef.props" />
-			</template>
-
-			<template v-if="typedef?.params && typedef?.params.length">
+			<template v-if="fn?.params && fn?.params.length">
 				<h2>Parameters</h2>
-				<ParameterTable :parameters="typedef.params" />
+				<ParameterTable :parameters="fn.params" />
 			</template>
 
-			<template v-if="typedef?.returns">
+			<template v-if="fn?.returns">
 				<h2>Returns</h2>
-				<span v-if="typedef.returns && Array.isArray(typedef.returns)">
+				<span v-if="fn.returns && Array.isArray(fn.returns)">
 					<template v-if="docs!.meta!.format >= 30">
-						<template v-if="Array.isArray(typedef.returns?.[0])">
-							<Types v-for="rtrn in typedef.returns.flat()" :key="typeKey(rtrn)" :names="rtrn" />
+						<template v-if="Array.isArray(fn.returns?.[0])">
+							<Types v-for="rtrn in fn.returns.flat()" :key="typeKey(rtrn)" :names="rtrn" />
 						</template>
 						<template v-else>
 							<Types
-								v-for="rtrn in typedef.returns.flat()"
+								v-for="rtrn in fn.returns.flat()"
 								:key="typeKey(rtrn)"
 								:names="rtrn.types?.flat()"
 								:variable="rtrn.variable"
@@ -47,7 +33,7 @@
 						</template>
 					</template>
 					<template v-else>
-						<Types v-for="rtrn in typedef.returns" :key="typeKey(rtrn)" :names="rtrn" />
+						<Types v-for="rtrn in fn.returns" :key="typeKey(rtrn)" :names="rtrn" />
 					</template>
 				</span>
 				<TypeLink v-else :type="['void']" />
@@ -63,7 +49,6 @@
 import { useHead } from '@vueuse/head';
 import { computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import ExpandableTypes from '~/components/ExpandableTypes.vue';
 import ParameterTable from '~/components/ParameterTable.vue';
 import See from '~/components/See.vue';
 import SourceButton from '~/components/SourceButton.vue';
@@ -80,20 +65,20 @@ const store = useStore();
 
 const docs = computed(() => store.state.docs);
 
-const typedef = docs.value?.typedefs.find((typedef) => typedef.name === route.params.typedef);
+const fn = docs.value?.functions?.find((fn) => fn.name === route.params.function);
 
 // @ts-expect-error
-const description = computed(() => markdown(convertLinks(typedef?.description, docs.value, router, route)));
+const description = computed(() => markdown(convertLinks(fn?.description, docs.value, router, route)));
 const returnDescription = computed(() =>
 	markdown(
 		// @ts-expect-error
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-		convertLinks(typedef.returns?.[0]?.description, docs.value, router, route) ?? '',
+		convertLinks(fn.returns?.[0]?.description, docs.value, router, route) ?? '',
 	),
 );
 
 useHead({
-	title: computed(() => `discord.js | ${typedef?.name ?? ''}`),
+	title: computed(() => `discord.js | ${fn?.name ?? ''}`),
 });
 
 onMounted(() => {

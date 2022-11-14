@@ -44,7 +44,7 @@ const html = computed(() => {
 });
 
 useHead({
-	title: computed(() => `wolvesville.js | ${file.value?.name ?? ''}`),
+	title: computed(() => `discord.js | ${file.value?.name ?? ''}`),
 });
 
 onMounted(() => {
