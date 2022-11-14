@@ -16,7 +16,7 @@
 					>Node.js <heroicons-outline-external-link class="h-5 w-5 inline-block mb-1" aria-hidden="true"
 				/></a>
 				module that allows you to interact with the
-				<a href="https://app.wolvesville.com" target="_blank" rel="noopener"
+				<a href="https://api-docs.wolvesville.com" target="_blank" rel="noopener"
 					>Wolvesville API <heroicons-outline-external-link class="h-5 w-5 inline-block mb-1" aria-hidden="true"
 				/></a>
 				very easily.
