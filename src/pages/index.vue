@@ -50,6 +50,11 @@ import InstallButton from '~/components/InstallButton.vue';
 import Stats from '~/components/Stats.vue';
 import MainSource from '~/data/MainSource';
 import { useStore } from '~/store';
+import { useHead } from '@vueuse/head';
+
+useHead({
+	title: computed(() => 'wolvesville.js'),
+});
 
 const store = useStore();
 
